@@ -101,6 +101,9 @@ This is a Ruby on Rails application built as a 2-hour Proof of Concept (PoC) for
 *   **Development Workflow & Rules:** The initial project rules and workflow documents were bootstrapped but not extensively refined or strictly followed in all minor details due to the focus on rapid feature delivery. A typical project would involve more iterative refinement of these guiding documents.
 *   **Refactoring:** Minimal refactoring was done. The primary goal was to implement all core features within the allocated time. With more time, areas of the code could be reviewed for further optimization and clarity.
 
+### Developer's Note on Process
+The developer also has ongoing work on a more comprehensive AI Rules Generator project (see [https://github.com/freebeiro/ai-rules-generator](https://github.com/freebeiro/ai-rules-generator)), where more rigorous aspects of code quality, testing, and rule-based development workflows are being implemented. The approach in this PoC was necessarily condensed due to the time constraints and focus on rapid feature delivery.
+
 ## Deviations from Initial Plan (`PROJECT_PLAN.md`)
 *   The product display section on the main chat page was removed based on user feedback during development to simplify the UI. Products are still fetched and used as context for the AI.
 *   A collapsible sidebar for chat history was implemented as a refinement.
