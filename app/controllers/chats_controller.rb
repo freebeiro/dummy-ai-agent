@@ -1,6 +1,14 @@
 class ChatsController < ApplicationController
   def show
-    @conversation = Conversation.last || Conversation.create
+    if params[:new] == 'true'
+      @conversation = Conversation.create
+      # Redirect to the same path but without the 'new=true' param to avoid re-creating on refresh
+      # and to ensure a clean URL for the new chat.
+      redirect_to root_path and return 
+    else
+      @conversation = Conversation.last || Conversation.create
+    end
+    
     @messages = @conversation.messages.order(created_at: :asc)
     @products = DummyJsonService.fetch_products(limit: 5) # Fetch a few products for display
   end
