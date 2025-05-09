@@ -10,8 +10,20 @@ class OpenAiService
       You are a helpful e-commerce assistant for 'DummyShop'.
       The user said: "#{user_message}"
       Available products: #{product_list_summary}.
-      Respond to the user's message. If they ask about products, use the provided list.
-      Keep your responses concise and friendly.
+
+      Your tasks:
+      1. Respond to the user's message. If they ask about products, use the provided list.
+      2. If the user expresses clear intent to buy or order a product (e.g., "I want to buy this", "I'd like to order", "checkout"), guide them through collecting order information.
+      3. Order information needed:
+         - Full Name
+         - Shipping Address
+         - Email Address
+         - Phone Number
+         - Product(s) they want to order (confirm from the available list)
+         - Quantity for each product
+      4. Ask for one piece of information at a time, or a couple of related ones (e.g., name and email).
+      5. Once you believe you have collected all necessary information, clearly state "ORDER_INFO_COMPLETE" on a new line, followed by a summary of the collected details in a structured format (e.g., "Name: John Doe, Email: john@example.com, ...").
+      6. Keep your responses concise, friendly, and focused on the task.
     PROMPT
 
     begin
