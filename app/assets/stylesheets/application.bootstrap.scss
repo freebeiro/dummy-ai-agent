@@ -21,18 +21,114 @@
 
 // General chat container styling
 #messages {
-  height: 70vh; // Example height, adjust as needed
+  // height: 70vh; // Will be controlled by main-chat-area height
   overflow-y: auto;
   padding: 1rem;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
+  // border: 1px solid #dee2e6; // Removing border for a cleaner look
+  // border-radius: 0.25rem;
   margin-bottom: 1rem;
+  background-color: #fff; // Messages area background
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border-radius: .5rem;
 }
 
 body {
-  background-color: #f8f9fa; // Light background for the whole page
+  background-color: #e9ecef; // Slightly darker page background
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden; // Prevent horizontal scroll when sidebar is animated
 }
 
-.container {
-  padding-top: 2rem;
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebar {
+  // background-color: #f8f9fa; // Default light
+  background-color: #fff;
+  border-right: 1px solid #dee2e6 !important;
+  padding: 1rem;
+  transition: transform 0.3s ease-in-out; // Changed from margin-left
+  box-shadow: 0.125rem 0 0.25rem rgba(0,0,0,0.05);
+  z-index: 100; // Keep sidebar above other content if it ever overlaps
+  // Ensure it's positioned absolutely or fixed if it needs to slide over content,
+  // or ensure the main content area adjusts. For now, assuming it slides out of view.
+}
+
+.sidebar.collapsed {
+  transform: translateX(-100%); // Use transform for smoother animation
+}
+
+
+.sidebar .list-group-item {
+  border: none; // Cleaner list items
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem; // Rounded corners for items
+  margin-bottom: 0.25rem;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.sidebar .list-group-item.active {
+  background-color: #0d6efd; // Bootstrap primary
+  color: white;
+  font-weight: 500;
+}
+
+.sidebar .list-group-item:not(.active):hover {
+  background-color: #e9ecef; // Hover effect
+}
+
+.main-chat-area {
+  padding: 1.5rem;
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+.main-chat-area.sidebar-collapsed {
+  margin-left: 0 !important; /* Ensure it takes full width when sidebar is gone */
+  width: 100% !important;
+}
+
+
+#chat-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+#sidebar-toggle {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+#sidebar-toggle:hover {
+  color: #0d6efd;
+}
+
+// Ensure full height layout
+html, body {
+  height: 100%;
+}
+
+.container-fluid, .row, .sidebar, .main-chat-area {
+  height: 100%;
+}
+.main-chat-area > div:not(#messages-container) { /* Exclude messages container from flex-grow */
+    flex-shrink: 0; /* Prevent other elements from shrinking */
+}
+#messages-container { /* Renamed from #messages for clarity */
+    flex-grow: 1; /* Allow messages container to take remaining space */
+    overflow-y: auto;
+    background-color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: .5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.main-chat-area {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+    padding: 1rem;
 }

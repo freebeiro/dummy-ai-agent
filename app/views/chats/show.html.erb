@@ -1,19 +1,43 @@
 <%= turbo_stream_from @conversation %>
 
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-md-10 col-lg-8"> {/* Centered column for chat */}
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>Chat</h1>
-        <%= link_to "New Chat", root_path(new: true), class: "btn btn-outline-secondary" %>
+<div class="container-fluid vh-100 d-flex flex-column p-0" data-controller="sidebar-toggle">
+  <div class="row g-0 flex-grow-1">
+    <div class="col-auto sidebar bg-white border-end" 
+         data-sidebar-toggle-target="sidebar" 
+         style="min-width: 280px; max-width: 280px;"> <!-- Fixed width sidebar -->
+      <div class="p-3">
+        <%= link_to "New Chat", root_path(new: true), class: "btn btn-primary w-100 mb-3" %>
+        <h5 class="mt-3 mb-2 text-muted">Recent Chats</h5>
+        <ul class="list-group list-group-flush">
+          <% @conversations_list.each do |conv| %>
+            <li class="list-group-item <%= 'active' if conv == @conversation %>">
+              <%= link_to "Chat #{conv.id}", 
+                          conversation_path(conv), 
+                          class: "text-decoration-none #{conv == @conversation ? 'text-white' : 'text-dark'}" %>
+              <small class="d-block text-muted"><%= time_ago_in_words(conv.updated_at) %> ago</small>
+            </li>
+          <% end %>
+        </ul>
       </div>
-      <div id="messages" data-controller="messages" class="mb-3 bg-light p-3 border rounded" style="height: 70vh; overflow-y: auto;">
+    </div>
+
+    <div class="col main-chat-area d-flex flex-column" data-sidebar-toggle-target="mainContent">
+      <div id="chat-header" class="p-3 border-bottom bg-light">
+        <button id="sidebar-toggle" class="btn btn-light me-3" data-action="click->sidebar-toggle#toggle">
+          <i class="bi bi-list"></i>
+        </button>
+        <h1 class="h4 mb-0">Chat with AI</h1>
+      </div>
+      
+      <div id="messages-container" class="flex-grow-1 p-3" data-controller="messages"> <!-- Renamed id and ensure it grows -->
         <%= render @messages %>
       </div>
 
-      <%= turbo_frame_tag "new_message" do %>
-        <%= render "messages/form", conversation: @conversation, message: Message.new %>
-      <% end %>
+      <div class="p-3 border-top bg-light"> <!-- Footer for form -->
+        <%= turbo_frame_tag "new_message" do %>
+          <%= render "messages/form", conversation: @conversation, message: Message.new %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

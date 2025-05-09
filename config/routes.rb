@@ -10,10 +10,13 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "chats#show"
+  # This will handle displaying the latest conversation or a new one if no ID is specified.
+  root "chats#show" 
 
-  # Route for creating messages within a conversation, handled by ChatsController#create
-  resources :conversations, only: [] do # We don't need other routes for Conversation resource itself for now
+  # Route for showing a specific conversation, also handled by ChatsController#show
+  # This generates conversation_path(conversation)
+  resources :conversations, only: [:show], controller: 'chats' do
+    # Nested route for creating messages within a specific conversation
     resources :messages, only: [:create], controller: 'chats'
   end
 end
