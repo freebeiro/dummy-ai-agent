@@ -91,7 +91,7 @@ This is a Ruby on Rails application built as a 2-hour Proof of Concept (PoC) for
 *   **GitHub Push Protection:** When attempting to push the repository, GitHub's Push Protection correctly identified the (now removed from current code, but present in historical commits) OpenAI API key. This is a valuable security feature. The standard way to handle this for a PoC where the key is known and has been revoked/removed from active code is to use the "allow secret" link provided by GitHub in the error message. For production, a full Git history rewrite would be recommended if a secret was accidentally committed. We typically avoid this by using `.env` files or Rails credentials from the start, which was done after the initial hardcoding was identified.
 
 ## Approach & Notes
-*   **Time Constraint:** Developed under a strict 2-hour time limit. Focus was on core functionality.
+*   **Time Constraint & Setup:** Developed under a strict 2-hour time limit. A significant portion of this time was dedicated to the initial project setup, environment configuration (including Ruby, Node.js, and API key management), and bootstrapping the development process with rules and planning documents. The subsequent feature implementation was rapid once this foundation was in place. Focus was on core functionality.
 *   **Rails Conventions:** Adhered to Rails conventions where possible to speed up development.
 *   **Hotwire:** Leveraged for dynamic UI updates with minimal custom JavaScript.
 *   **Error Handling:** Basic error handling implemented for API calls.
