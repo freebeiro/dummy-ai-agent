@@ -97,7 +97,9 @@ This is a Ruby on Rails application built as a 2-hour Proof of Concept (PoC) for
 *   **Error Handling:** Basic error handling implemented for API calls.
 *   **Order Parsing:** Simplified parsing of AI response for order details. A production system would use a more robust method (e.g., AI providing structured JSON).
 *   **Styling:** Basic styling with Bootstrap. The sidebar and chat interface were styled to be more modern based on feedback.
-*   **No Automated Tests:** As per PoC requirements. Manual testing was performed for the core flow.
+*   **No Automated Tests or Linters:** Due to the strict 2-hour time constraint, automated tests (e.g., RSpec, Capybara) and linters (e.g., RuboCop) were not implemented. In a standard project, these would be integral for ensuring code quality and maintainability.
+*   **Development Workflow & Rules:** The initial project rules and workflow documents were bootstrapped but not extensively refined or strictly followed in all minor details due to the focus on rapid feature delivery. A typical project would involve more iterative refinement of these guiding documents.
+*   **Refactoring:** Minimal refactoring was done. The primary goal was to implement all core features within the allocated time. With more time, areas of the code could be reviewed for further optimization and clarity.
 
 ## Deviations from Initial Plan (`PROJECT_PLAN.md`)
 *   The product display section on the main chat page was removed based on user feedback during development to simplify the UI. Products are still fetched and used as context for the AI.
