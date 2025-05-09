@@ -2,7 +2,10 @@ require 'openai'
 
 class OpenAiService
   def self.client
-    OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY', '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'))
+    # Rely solely on the environment variable.
+    # If OPENAI_API_KEY is not set, ENV.fetch will raise a KeyError,
+    # which is desirable to alert the developer.
+    OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
   end
 
   def self.get_chat_completion(conversation_messages, product_list_summary)

@@ -30,6 +30,9 @@ gem "httparty"
 # For OpenAI API interaction
 gem "ruby-openai"
 
+# For loading .env files in development and test environments
+gem "dotenv-rails", groups: [:development, :test]
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
