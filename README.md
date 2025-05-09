@@ -1,4 +1,4 @@
-s is what i need to # DummyAIAgent - Proof of Concept
+s is what i need to ok # DummyAIAgent - Proof of Concept
 
 This is a Ruby on Rails application built as a 2-hour Proof of Concept (PoC) for a technical interview. It simulates a simple AI-powered e-commerce chat agent.
 
@@ -81,7 +81,7 @@ This is a Ruby on Rails application built as a 2-hour Proof of Concept (PoC) for
 *   Managed API keys using `.env` file and `dotenv-rails` gem, removing hardcoded keys from source code.
 
 ### API Key & AI Integration Challenges
-*   **OpenAI API Key Issue:** During development, the initial OpenAI API key provided became invalid (returned 401 errors). This was confirmed via cURL tests. The standard solution is to obtain a new, valid key from the OpenAI dashboard and update the `.env` file.
+*   **OpenAI API Key Issue:** During development, the initial OpenAI API key provided became invalid (returned 401 errors). This was confirmed via cURL tests. The standard solution is to obtain a new, valid key from the OpenAI dashboard and update the `.env` file. (It's possible this eventuality was mentioned by the user at the outset of the PoC, and due to the fast-paced nature of the session, this detail was overlooked initially.)
 *   **Attempt to Use Anthropic:** As a quick alternative to the OpenAI key issue, an attempt was made to integrate the Anthropic (Claude) API. This involved:
     *   Creating a new feature branch (`feature/anthropic-integration`).
     *   Adding the `ruby-anthropic` gem (after an initial mix-up with the older `anthropic` gem name).
