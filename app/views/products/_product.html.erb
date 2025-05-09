@@ -1,0 +1,11 @@
+<div class="card mb-3 product-card" style="width: 18rem;">
+  <% if product['thumbnail'] %>
+    <%= image_tag product['thumbnail'], class: "card-img-top", alt: product['title'], style: "height: 180px; object-fit: cover;" %>
+  <% end %>
+  <div class="card-body">
+    <h5 class="card-title"><%= product['title'] %></h5>
+    <p class="card-text"><%= truncate(product['description'], length: 80) %></p>
+    <p class="card-text"><strong>Price: $<%= product['price'] %></strong></p>
+    <%# Future: Add to cart or view details button %>
+  </div>
+</div>

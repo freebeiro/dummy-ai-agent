@@ -1,13 +1,26 @@
 <%= turbo_stream_from @conversation %>
 
-<div class="container">
-  <h1>Chat</h1>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Chat</h1>
+      <div id="messages" data-controller="messages" class="mb-3 bg-light p-3 border rounded" style="height: 60vh; overflow-y: auto;">
+        <%= render @messages %>
+      </div>
 
-  <div id="messages" data-controller="messages">
-    <%= render @messages %>
+      <%= turbo_frame_tag "new_message" do %>
+        <%= render "messages/form", conversation: @conversation, message: Message.new %>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <h2>Products</h2>
+      <div id="products" class="d-flex flex-row overflow-auto pb-3" style="height: 75vh;">
+        <% if @products.present? %>
+          <%= render partial: "products/product", collection: @products, as: :product %>
+        <% else %>
+          <p>No products to display or error fetching products.</p>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <%= turbo_frame_tag "new_message" do %>
-    <%= render "messages/form", conversation: @conversation, message: Message.new %>
-  <% end %>
 </div>

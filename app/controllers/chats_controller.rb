@@ -2,6 +2,7 @@ class ChatsController < ApplicationController
   def show
     @conversation = Conversation.last || Conversation.create
     @messages = @conversation.messages.order(created_at: :asc)
+    @products = DummyJsonService.fetch_products(limit: 5) # Fetch a few products for display
   end
 
   def create
