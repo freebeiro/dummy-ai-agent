@@ -5,10 +5,9 @@ class OpenAiService
     OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY', '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'))
   end
 
-  def self.get_chat_completion(user_message, product_list_summary)
-    prompt = <<~PROMPT
+  def self.get_chat_completion(conversation_messages, product_list_summary)
+    system_prompt_content = <<~PROMPT
       You are a helpful e-commerce assistant for 'DummyShop'.
-      The user said: "#{user_message}"
       Available products: #{product_list_summary}.
 
       Your tasks:
@@ -26,11 +25,18 @@ class OpenAiService
       6. Keep your responses concise, friendly, and focused on the task.
     PROMPT
 
+    api_messages = [{ role: "system", content: system_prompt_content }]
+    # Ensure conversation_messages is an array and not nil
+    Array(conversation_messages).each do |msg|
+      role = msg.sender_type == "User" ? "user" : "assistant" # Use sender_type from Message model
+      api_messages << { role: role, content: msg.content }
+    end
+
     begin
       response = client.chat(
         parameters: {
           model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: prompt }],
+          messages: api_messages,
           temperature: 0.7
         }
       )

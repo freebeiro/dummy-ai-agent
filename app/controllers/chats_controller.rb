@@ -15,13 +15,45 @@ class ChatsController < ApplicationController
       products = DummyJsonService.fetch_products(limit: 5)
       product_list_summary = products.map { |p| "#{p['title']} ($#{p['price']})" }.join(', ')
 
+      # Prepare conversation history for the AI service
+      # We want to send all messages of the current conversation up to the new user message.
+      # The new user message (@message) is already part of @conversation.messages once saved.
+      # So, we fetch @conversation.messages.order(:created_at) which will include the latest user message.
+      conversation_history_for_ai = @conversation.messages.order(created_at: :asc)
+
       # Get AI response
-      ai_response_content = OpenAiService.get_chat_completion(@message.content, product_list_summary)
+      ai_response_content = OpenAiService.get_chat_completion(conversation_history_for_ai, product_list_summary)
 
       # Create and save AI message
       if ai_response_content.present?
         ai_message = @conversation.messages.create(content: ai_response_content, sender_type: "AI")
         # AI message will be broadcast by its own after_create_commit callback
+
+        # Check for order completion marker
+        if ai_response_content.include?("ORDER_INFO_COMPLETE")
+          # Simplified parsing for PoC: extract the summary part after the marker.
+          # A more robust solution would parse structured data (e.g., JSON) if the AI provided it.
+          order_summary_text = ai_response_content.split("ORDER_INFO_COMPLETE").last&.strip
+          
+          # For PoC, we'll just store the raw summary.
+          # In a real app, you'd parse this into individual fields.
+          Order.create(
+            conversation: @conversation,
+            product_details: order_summary_text || "Details not fully captured by AI.", # Fallback
+            # Other fields like name, address would be parsed and set here
+            # For now, we'll leave them blank or use placeholders if needed.
+            first_name: "ParsedFirstName", # Placeholder
+            last_name: "ParsedLastName",   # Placeholder
+            email: "parsed@example.com", # Placeholder
+            address: "Parsed Address",     # Placeholder
+            postcode: "ParsedPostcode",  # Placeholder
+            phone_number: "ParsedPhone"  # Placeholder
+          )
+          
+          # Send a confirmation message
+          confirmation_text = "Thank you! Your order has been simulated. Details: #{order_summary_text}"
+          @conversation.messages.create(content: confirmation_text, sender_type: "System")
+        end
       end
 
       # Respond to the turbo-frame request for the user's message form

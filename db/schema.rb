@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_09_153339) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_09_160619) do
   create_table "conversations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,5 +25,20 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_09_153339) do
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.text "address"
+    t.string "postcode"
+    t.string "phone_number"
+    t.string "email"
+    t.text "product_details"
+    t.integer "conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_orders_on_conversation_id"
+  end
+
   add_foreign_key "messages", "conversations"
+  add_foreign_key "orders", "conversations"
 end
