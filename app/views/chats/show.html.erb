@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Chat</h1>
+
+  <div id="messages" data-controller="messages">
+    <%= render @messages %>
+  </div>
+
+  <%= turbo_frame_tag "new_message" do %>
+    <%= render "messages/form", conversation: @conversation, message: Message.new %>
+  <% end %>
+</div>
