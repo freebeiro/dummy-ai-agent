@@ -1,6 +1,6 @@
 <%= form_with model: [conversation, message], data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } do |form| %>
   <div class="input-group mb-3">
-    <%= form.text_area :content, class: "form-control", rows: 1, placeholder: "Type your message..." %>
+    <%= form.text_area :content, class: "form-control", rows: 1, placeholder: "Ask a question" %>
     <%= form.submit "Send", class: "btn btn-primary" %>
   </div>
 <% end %>

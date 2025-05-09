@@ -11,4 +11,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "chats#show"
+
+  # Route for creating messages within a conversation, handled by ChatsController#create
+  resources :conversations, only: [] do # We don't need other routes for Conversation resource itself for now
+    resources :messages, only: [:create], controller: 'chats'
+  end
 end

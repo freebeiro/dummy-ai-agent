@@ -1,4 +1,13 @@
-<div id="<%= dom_id message %>" class="message mb-2 p-2 border rounded">
-  <p class="mb-0"><strong><%= message.sender_type %>:</strong> <%= message.content %></p>
-  <small class="text-muted"><%= time_ago_in_words(message.created_at) %> ago</small>
+<%
+  message_class = "message mb-3 p-3 rounded-3 shadow-sm"
+  if message.sender_type == "User"
+    message_class += " user-message"
+  else
+    message_class += " ai-message"
+  end
+%>
+
+<div id="<%= dom_id message %>" class="<%= message_class %>">
+  <p class="mb-1"><%= message.content %></p>
+  <small class="text-muted d-block text-end"><%= time_ago_in_words(message.created_at) %> ago</small>
 </div>
